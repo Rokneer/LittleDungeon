@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3416593130935369318}
   - component: {fileID: 8674001320851509944}
   m_Layer: 0
-  m_Name: Skin
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,9 +96,10 @@ GameObject:
   - component: {fileID: 7472454710094069903}
   - component: {fileID: 1643880619624531541}
   - component: {fileID: 4467015975314863636}
+  - component: {fileID: -6959770978375093706}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,7 +137,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -147,7 +148,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &1643880619624531541
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -196,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: c17cfd6f79df31d42b8bd4d3d898ae95, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -207,12 +208,57 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4208bc52-7379-464b-981a-5193485934b1
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 618f1417-8441-4d7a-bae0-9a10a601828b
+    m_ActionName: Player/PointerPosition[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c6b438cb-9681-41e7-9c05-0de4884de102
+    m_ActionName: Player/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fd600194-02eb-4878-980d-ebd927f9c1b5
+    m_ActionName: Player/Block[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 43da6c55-d505-489a-932e-800b14262648
+    m_ActionName: Player/Dodge[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b6a765b6-1870-4358-b12e-09e82887dda0
+    m_ActionName: Player/ChangeLeftEquipment[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: db3590ee-cd28-4d50-9cbe-b8ec60c33520
+    m_ActionName: Player/ChangeRightEquipment[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5ffab191-7b63-4dc2-a315-5fa99e1d72b1
+    m_ActionName: Player/Interact[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-6959770978375093706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113274365859468851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca9ad27c8c7e774c951e881fba64086, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 6
 --- !u!1 &329187696526327678
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,7 +302,7 @@ GameObject:
   - component: {fileID: 5368840740656393024}
   - component: {fileID: 5908311552922324733}
   m_Layer: 0
-  m_Name: Skin
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -340,7 +386,7 @@ GameObject:
   - component: {fileID: 3621026641999572517}
   - component: {fileID: 870391475792060279}
   m_Layer: 0
-  m_Name: Skin
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -422,6 +468,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6822897317374847487}
+  - component: {fileID: 2207063609554516778}
   m_Layer: 0
   m_Name: RightHand
   m_TagString: Untagged
@@ -438,10 +485,22 @@ Transform:
   m_GameObject: {fileID: 4889012410761781089}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.337, y: -0.39, z: 0}
+  m_LocalPosition: {x: 0.337, y: -0.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5368840740656393024}
   m_Father: {fileID: 3248499623051057550}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2207063609554516778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4889012410761781089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fdb5096cea81de469cd084b3faa7d49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
