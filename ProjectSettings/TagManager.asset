@@ -47,11 +47,11 @@ TagManager:
   - name: Walls
     uniqueID: 574761737
     locked: 0
-  - name: Enemies
-    uniqueID: 1896684621
-    locked: 0
   - name: Decorations
     uniqueID: 3520580045
+    locked: 0
+  - name: Enemies
+    uniqueID: 1896684621
     locked: 0
   - name: Player
     uniqueID: 1664344333
