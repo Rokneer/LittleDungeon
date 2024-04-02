@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private InputAction changeLeftEquipmentAction;
     private InputAction changeRightEquipmentAction;
     private InputAction interactAction;
+    private InputAction openInventoryAction;
 
     private Vector2 moveInput;
 
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         changeLeftEquipmentAction = playerInput.actions["ChangeLeftEquipment"];
         changeRightEquipmentAction = playerInput.actions["ChangeRightEquipment"];
         interactAction = playerInput.actions["Interact"];
+        openInventoryAction = playerInput.actions["OpenInventory"];
     }
 
     private void Start()
@@ -134,6 +136,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnInteract(InputAction.CallbackContext context)
     {
-        Debug.Log($"Interacted with !");
+        Debug.Log($"Interacted with a thing!");
+    }
+    
+    private void OnOpenInventory(InputAction.CallbackContext context)
+    {
+        Debug.Log("Opened inventory!");
+        Debug.Log($"Weapons: {player.weaponsInInventory}");
+        Debug.Log($"Shields: {player.shieldsInInventory}");
+        Debug.Log($"Potions: {player.potionsInInventory}");
     }
 }

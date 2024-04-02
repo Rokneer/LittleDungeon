@@ -4,6 +4,11 @@ public class Weapon : Equipment
 {
     private WeaponType weaponType;
 
+    private void Awake() 
+    {
+        equipmentType = EquipmentType.Weapon;
+    }
+
     private void OnDamage() { }
 
     private void CauseStatusEffect() { }

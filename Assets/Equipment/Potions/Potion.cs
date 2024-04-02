@@ -4,6 +4,11 @@ public class Potion : Equipment
 {
     private PotionType potionType;
 
+    private void Awake()
+    {
+        equipmentType = EquipmentType.Potion;
+    }
+
     public override void OnDespawn()
     {
         Debug.Log("Potion of type" + potionType + "despawned");

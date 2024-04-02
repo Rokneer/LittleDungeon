@@ -5010,22 +5010,27 @@ MonoBehaviour:
   sprite: {fileID: 0}
   animator: {fileID: 0}
   deathSFX: {fileID: 0}
-  statusEffect: 0
+  currentStatusEffect: 0
   maxHealth: 3
   _currentHealth: 3
   _isAlive: 1
+  isInvicible: 0
+  invicibilityTime: 0.4
+  timeSinceHit: 0
+  damageSFX: []
+  healSFX: []
   stamina: 100
   movementSpeed: 7
   attackPower: 10
   armorPower: 10
-  isInvicible: 0
-  invicibilityTime: 0.4
-  timeSinceHit: 0
   rb: {fileID: 0}
   _isFacingRight: 1
   dodgeParticles: {fileID: 0}
   activeRightHandEquipment: {fileID: 0}
   activeLeftHandEquipment: {fileID: 0}
+  weaponsInInventory: []
+  shieldsInInventory: []
+  potionsInInventory: []
   dodgeSFX: {fileID: 0}
   dodgeReadySFX: {fileID: 0}
   dodgeImpulse: 20
@@ -5210,7 +5215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4560047378949272256, guid: 69e6850bfbbd66143bf0d4951ebfe453, type: 3}
       propertyPath: m_Name
-      value: SwordLevel1
+      value: Weapon
       objectReference: {fileID: 0}
     - target: {fileID: 5968351443034098365, guid: 69e6850bfbbd66143bf0d4951ebfe453, type: 3}
       propertyPath: m_IsTrigger
@@ -5276,7 +5281,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9012570924596494821, guid: 1bb35f82f563e3f40b1f3428ca4b593c, type: 3}
       propertyPath: m_Name
-      value: ShieldLevel1
+      value: Shield
       objectReference: {fileID: 0}
     - target: {fileID: 9039707763114718747, guid: 1bb35f82f563e3f40b1f3428ca4b593c, type: 3}
       propertyPath: m_LocalPosition.x

@@ -22377,6 +22377,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5152638258466320173, guid: b6cb3438aae94ce43901d7e288eebbbb, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fbf59ccce53f7624582ab53e8bd56ec3, type: 2}
     - target: {fileID: 6559132551022939259, guid: b6cb3438aae94ce43901d7e288eebbbb, type: 3}
       propertyPath: healSFX.Array.size
       value: 3

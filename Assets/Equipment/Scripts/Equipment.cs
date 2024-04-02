@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class Equipment : Entity
 {
+    [HideInInspector]
     public EquipmentType equipmentType;
     public StatusEffect statusEffect;
     public float multiplier;

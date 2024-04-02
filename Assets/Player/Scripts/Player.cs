@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : LivingEntity
@@ -8,8 +9,9 @@ public class Player : LivingEntity
     [Header("Equipment")]
     public Equipment activeRightHandEquipment;
     public Equipment activeLeftHandEquipment;
-    private Equipment[] rightHandEquipmentList;
-    private Equipment[] leftHandEquipmentList;
+    public List<Weapon> weaponsInInventory;
+    public List<Shield> shieldsInInventory;
+    public List<Potion> potionsInInventory;
 
     [Header("Dodge")]
     public AudioClip dodgeSFX;
