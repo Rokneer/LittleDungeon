@@ -6,13 +6,24 @@ public abstract class Entity : MonoBehaviour
     public string entityName;
 
     [HideInInspector]
-    public Sprite sprite;
+    private Sprite _sprite;
+    public Sprite Sprite{
+        get => _sprite;
+        set {
+            _sprite = value;
+            spriteRenderer.sprite = value;
+        }
+    }
+
+    [HideInInspector]
+    public SpriteRenderer spriteRenderer;
 
     [HideInInspector]
     public Animator animator;
 
     private void Awake()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
 

@@ -11,14 +11,8 @@ public class Item : Entity
         {
             _equipment = value;
             entityName = value.itemName;
-            sprite = value.sprite;
+            Sprite = value.sprite;
         }
-    }
-
-    private void Start()
-    {
-        entityName = Equipment.itemName;
-        sprite = Equipment.sprite;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

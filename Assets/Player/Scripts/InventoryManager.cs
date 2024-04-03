@@ -6,20 +6,14 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     [Header("Equipment")]
-    public GameObject rightHandEquipmentPrefab;
-    public GameObject leftHandEquipmentPrefab;
-
-    [SerializeField]
-    private Transform rightHandEquipmentTransform;
-
-    [SerializeField]
-    private Transform leftHandEquipmentTransform;
+    public GameObject rightHandEquipment;
+    public GameObject leftHandEquipment;
 
     [HideInInspector]
-    public Equipment rightHandEquipment;
+    public Equipment rightHandEquipmentData;
 
     [HideInInspector]
-    public Equipment leftHandEquipment;
+    public Equipment leftHandEquipmentData;
 
     private int rightHandEquipmentIndex = 0;
 
@@ -32,13 +26,11 @@ public class InventoryManager : MonoBehaviour
 
     private void Awake()
     {
-        rightHandEquipment = rightHandEquipmentPrefab.GetComponent<Item>().Equipment;
-        weapons.Add(rightHandEquipment);
-        Instantiate(rightHandEquipmentPrefab, rightHandEquipmentTransform);
+        rightHandEquipmentData = weapons[0];
+        rightHandEquipment.GetComponent<Item>().Equipment = rightHandEquipmentData;
 
-        leftHandEquipment = leftHandEquipmentPrefab.GetComponent<Item>().Equipment;
-        shields.Add(leftHandEquipment);
-        Instantiate(leftHandEquipmentPrefab, leftHandEquipmentTransform);
+        leftHandEquipmentData = shields[0];
+        leftHandEquipment.GetComponent<Item>().Equipment = leftHandEquipmentData;
     }
 
     public void ChangeEquipment(EquipmentSide side)
@@ -51,10 +43,9 @@ public class InventoryManager : MonoBehaviour
                     Debug.Log("No more weapons in inventory");
                     return;
                 }
-
                 rightHandEquipmentIndex = RotateEquipmentIndex(weapons, rightHandEquipmentIndex);
-                rightHandEquipment = weapons[rightHandEquipmentIndex];
-                rightHandEquipmentPrefab = rightHandEquipment.prefab;
+                rightHandEquipmentData = weapons[rightHandEquipmentIndex];
+                rightHandEquipment = rightHandEquipmentData.prefab;
                 break;
             case EquipmentSide.Left:
                 if (shields.Count <= 1)
@@ -62,10 +53,9 @@ public class InventoryManager : MonoBehaviour
                     Debug.Log("No more shields in inventory");
                     return;
                 }
-
                 leftHandEquipmentIndex = RotateEquipmentIndex(shields, leftHandEquipmentIndex);
-                leftHandEquipment = shields[leftHandEquipmentIndex];
-                leftHandEquipmentPrefab = leftHandEquipment.prefab;
+                leftHandEquipmentData = shields[leftHandEquipmentIndex];
+                leftHandEquipment = leftHandEquipmentData.prefab;
                 break;
             default:
                 Debug.LogError("ERROR: Invalid equipment side");

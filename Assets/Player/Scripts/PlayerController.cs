@@ -86,20 +86,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnAttack(InputAction.CallbackContext context)
     {
-        if (player.inventory.rightHandEquipment.type is EquipmentType.Weapon)
+        if (player.inventory.rightHandEquipmentData.type is EquipmentType.Weapon)
         {
             Debug.Log(
-                $"Attacked with {player.inventory.rightHandEquipment.itemName} for {player.CalculateAttackPower(player.inventory.rightHandEquipment, player)}!"
+                $"Attacked with {player.inventory.rightHandEquipmentData.itemName} for {player.CalculateAttackPower(player.inventory.rightHandEquipmentData, player)}!"
             );
         }
     }
 
     private void OnBlock(InputAction.CallbackContext context)
     {
-        if (player.inventory.leftHandEquipment.type is EquipmentType.Shield)
+        if (player.inventory.leftHandEquipmentData.type is EquipmentType.Shield)
         {
             Debug.Log(
-                $"Blocked with {player.inventory.leftHandEquipment.itemName} for {player.CalculateDefensePower(player.inventory.leftHandEquipment, player)}!"
+                $"Blocked with {player.inventory.leftHandEquipmentData.itemName} for {player.CalculateDefensePower(player.inventory.leftHandEquipmentData, player)}!"
             );
         }
     }
@@ -129,13 +129,13 @@ public class PlayerController : MonoBehaviour
     private void OnChangeLeftEquipment(InputAction.CallbackContext context)
     {
         player.inventory.ChangeEquipment(EquipmentSide.Left);
-        Debug.Log($"Left equipment changed to {player.inventory.leftHandEquipment.itemName}!");
+        Debug.Log($"Left equipment changed to {player.inventory.leftHandEquipmentData.itemName}!");
     }
 
     private void OnChangeRightEquipment(InputAction.CallbackContext context)
     {
         player.inventory.ChangeEquipment(EquipmentSide.Right);
-        Debug.Log($"Right equipment changed to {player.inventory.rightHandEquipment.itemName}!");
+        Debug.Log($"Right equipment changed to {player.inventory.rightHandEquipmentData.itemName}!");
     }
 
     private void OnInteract(InputAction.CallbackContext context)
