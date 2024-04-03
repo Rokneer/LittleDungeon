@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         pointerInput = GetPointerInput();
-        weaponParent.PointerPosition = pointerInput;
+        weaponParent.pointerPosition = pointerInput;
     }
 
     private void FixedUpdate()

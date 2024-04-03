@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class WeaponParent : MonoBehaviour
 {
-    public Vector2 PointerPosition { get; set; }
+    public Equipment weapon;
+    public Vector2 pointerPosition;
+
+    
 
     private void Update()
     {
-        Vector2 direction = (PointerPosition - (Vector2)transform.position).normalized;
+        Vector2 direction = (pointerPosition - (Vector2)transform.position).normalized;
         transform.right = direction;
     }
 }

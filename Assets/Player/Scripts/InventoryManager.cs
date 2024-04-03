@@ -9,13 +9,21 @@ public class InventoryManager : MonoBehaviour
     public GameObject rightHandEquipmentPrefab;
     public GameObject leftHandEquipmentPrefab;
 
+    [SerializeField]
+    private Transform rightHandEquipmentTransform;
+
+    [SerializeField]
+    private Transform leftHandEquipmentTransform;
+
     [HideInInspector]
     public Equipment rightHandEquipment;
 
     [HideInInspector]
     public Equipment leftHandEquipment;
-    private readonly int rightHandEquipmentIndex = 0;
-    private readonly int leftHandEquipmentIndex = 0;
+
+    private int rightHandEquipmentIndex = 0;
+
+    private int leftHandEquipmentIndex = 0;
 
     [Header("Inventory")]
     public List<Equipment> weapons;
@@ -24,26 +32,13 @@ public class InventoryManager : MonoBehaviour
 
     private void Awake()
     {
-        Item[] items = GetComponentsInChildren<Item>();
-        foreach (Item item in items)
-        {
-            Equipment equipment = item.Equipment;
-            FilterEquipment(
-                equipment,
-                () =>
-                {
-                    rightHandEquipment = equipment;
-                    rightHandEquipmentPrefab = equipment.prefab;
-                    weapons.Add(equipment);
-                },
-                () =>
-                {
-                    leftHandEquipment = equipment;
-                    leftHandEquipmentPrefab = equipment.prefab;
-                    shields.Add(equipment);
-                }
-            );
-        }
+        rightHandEquipment = rightHandEquipmentPrefab.GetComponent<Item>().Equipment;
+        weapons.Add(rightHandEquipment);
+        Instantiate(rightHandEquipmentPrefab, rightHandEquipmentTransform);
+
+        leftHandEquipment = leftHandEquipmentPrefab.GetComponent<Item>().Equipment;
+        shields.Add(leftHandEquipment);
+        Instantiate(leftHandEquipmentPrefab, leftHandEquipmentTransform);
     }
 
     public void ChangeEquipment(EquipmentSide side)
@@ -56,7 +51,9 @@ public class InventoryManager : MonoBehaviour
                     Debug.Log("No more weapons in inventory");
                     return;
                 }
-                rightHandEquipment = ReplaceEquipment(weapons, rightHandEquipmentIndex);
+
+                rightHandEquipmentIndex = RotateEquipmentIndex(weapons, rightHandEquipmentIndex);
+                rightHandEquipment = weapons[rightHandEquipmentIndex];
                 rightHandEquipmentPrefab = rightHandEquipment.prefab;
                 break;
             case EquipmentSide.Left:
@@ -65,7 +62,9 @@ public class InventoryManager : MonoBehaviour
                     Debug.Log("No more shields in inventory");
                     return;
                 }
-                leftHandEquipment = ReplaceEquipment(shields, leftHandEquipmentIndex);
+
+                leftHandEquipmentIndex = RotateEquipmentIndex(shields, leftHandEquipmentIndex);
+                leftHandEquipment = shields[leftHandEquipmentIndex];
                 leftHandEquipmentPrefab = leftHandEquipment.prefab;
                 break;
             default:
@@ -74,12 +73,17 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private Equipment ReplaceEquipment(List<Equipment> equipmentList, int equipmentIndex)
+    private int RotateEquipmentIndex(List<Equipment> equipmentList, int currentEquipmentIndex)
     {
-        equipmentIndex = equipmentIndex > equipmentList.Count ? 0 : equipmentIndex++;
-        Equipment currentEquipment = equipmentList[equipmentIndex];
-
-        return currentEquipment;
+        if (currentEquipmentIndex < equipmentList.Count - 1)
+        {
+            currentEquipmentIndex++;
+        }
+        else
+        {
+            currentEquipmentIndex = 0;
+        }
+        return currentEquipmentIndex;
     }
 
     public void AddEquipment(Equipment equipment)
