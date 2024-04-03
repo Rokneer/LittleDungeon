@@ -3,15 +3,8 @@ using UnityEngine;
 public class Humanoid : Enemy
 {
     [SerializeField]
-    private Equipment rightHandEquipment;
+    private Item rightHandEquipment;
 
     [SerializeField]
-    private Equipment leftHandEquipment;
-
-    public override void OnDespawn()
-    {
-        throw new System.NotImplementedException();
-    }
-
-
+    private Item leftHandEquipment;
 }

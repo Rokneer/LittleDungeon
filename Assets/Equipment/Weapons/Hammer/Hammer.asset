@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88560f88f74a5fa49b48e2f5f8423801, type: 3}
+  m_Name: Hammer
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6074512219149567435, guid: d12edb23a13a1bc459c38a649efa542e, type: 3}
+  itemName: Hammer
+  type: 0
+  sprite: {fileID: 21300000, guid: daf02f5d7a24ecb4891aceaf0b6d0cb1, type: 3}
+  statusEffect: 0
+  useSpeed: 0.4
+  multiplier: 2.2
+  pickUpSFX: {fileID: 8300000, guid: 8a1f1ffe497e30342ba6af1f54cf7c79, type: 3}
+  actionSFX: {fileID: 8300000, guid: 8a1f1ffe497e30342ba6af1f54cf7c79, type: 3}

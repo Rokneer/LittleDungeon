@@ -50,12 +50,12 @@ public abstract class LivingEntity : DamageableEntity
         }
     }
 
-    public float CalculateAttackPower(Weapon weapon, LivingEntity entity)
+    public float CalculateAttackPower(Equipment weapon, LivingEntity entity)
     {
         return weapon.multiplier * entity.attackPower;
     }
 
-    public float CalculateDefensePower(Shield shield, LivingEntity entity)
+    public float CalculateDefensePower(Equipment shield, LivingEntity entity)
     {
         return shield.multiplier * entity.armorPower;
     }

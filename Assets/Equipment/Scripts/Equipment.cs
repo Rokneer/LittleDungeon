@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public abstract class Equipment : Entity
+[CreateAssetMenu(menuName = "LittleDungeon/Equipment")]
+public class Equipment : ScriptableObject
 {
-    [HideInInspector]
-    public EquipmentType equipmentType;
+    public GameObject prefab;
+    public string itemName;
+    public EquipmentType type;
+    public Sprite sprite;
     public StatusEffect statusEffect;
+    public float useSpeed;
     public float multiplier;
-    public bool isEquipped;
     public AudioClip pickUpSFX;
     public AudioClip actionSFX;
-
-    public abstract void OnPickUp();
-    public abstract void OnUse();
 }

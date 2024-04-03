@@ -6,10 +6,4 @@ public class Box : DamageableEntity, ILootable
     {
         throw new System.NotImplementedException();
     }
-
-    public override void OnDespawn()
-    {
-        throw new System.NotImplementedException();
-    }
-
 }

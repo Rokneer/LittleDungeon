@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
         changeLeftEquipmentAction.started += OnChangeLeftEquipment;
         changeRightEquipmentAction.started += OnChangeRightEquipment;
         interactAction.started += OnInteract;
+        openInventoryAction.started += OnOpenInventory;
     }
 
     private void OnDisable()
@@ -57,6 +58,7 @@ public class PlayerController : MonoBehaviour
         changeLeftEquipmentAction.started -= OnChangeLeftEquipment;
         changeRightEquipmentAction.started -= OnChangeRightEquipment;
         interactAction.started -= OnInteract;
+        openInventoryAction.started -= OnOpenInventory;
     }
 
     private void Update()
@@ -84,20 +86,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnAttack(InputAction.CallbackContext context)
     {
-        if (player.activeRightHandEquipment is Weapon)
+        if (player.inventory.rightHandEquipment.type is EquipmentType.Weapon)
         {
             Debug.Log(
-                $"Attacked with {player.activeRightHandEquipment.name} for {player.CalculateAttackPower(player.activeRightHandEquipment as Weapon, player)}!"
+                $"Attacked with {player.inventory.rightHandEquipment.itemName} for {player.CalculateAttackPower(player.inventory.rightHandEquipment, player)}!"
             );
         }
     }
 
     private void OnBlock(InputAction.CallbackContext context)
     {
-        if (player.activeLeftHandEquipment is Shield)
+        if (player.inventory.leftHandEquipment.type is EquipmentType.Shield)
         {
             Debug.Log(
-                $"Blocked with {player.activeLeftHandEquipment.name} for {player.CalculateDefensePower(player.activeLeftHandEquipment as Shield, player)}!"
+                $"Blocked with {player.inventory.leftHandEquipment.itemName} for {player.CalculateDefensePower(player.inventory.leftHandEquipment, player)}!"
             );
         }
     }
@@ -126,24 +128,26 @@ public class PlayerController : MonoBehaviour
 
     private void OnChangeLeftEquipment(InputAction.CallbackContext context)
     {
-        Debug.Log($"Left equipment changed to {player.activeLeftHandEquipment.name}!");
+        player.inventory.ChangeEquipment(EquipmentSide.Left);
+        Debug.Log($"Left equipment changed to {player.inventory.leftHandEquipment.itemName}!");
     }
 
     private void OnChangeRightEquipment(InputAction.CallbackContext context)
     {
-        Debug.Log($"Right equipment changed to {player.activeRightHandEquipment.name}!");
+        player.inventory.ChangeEquipment(EquipmentSide.Right);
+        Debug.Log($"Right equipment changed to {player.inventory.rightHandEquipment.itemName}!");
     }
 
     private void OnInteract(InputAction.CallbackContext context)
     {
         Debug.Log($"Interacted with a thing!");
     }
-    
+
     private void OnOpenInventory(InputAction.CallbackContext context)
     {
         Debug.Log("Opened inventory!");
-        Debug.Log($"Weapons: {player.weaponsInInventory}");
-        Debug.Log($"Shields: {player.shieldsInInventory}");
-        Debug.Log($"Potions: {player.potionsInInventory}");
+        Debug.Log($"Weapons: {player.inventory.weapons}");
+        Debug.Log($"Shields: {player.inventory.shields}");
+        Debug.Log($"Potions: {player.inventory.potions}");
     }
 }

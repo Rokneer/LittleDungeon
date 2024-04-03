@@ -9,11 +9,6 @@ public class Chest : DamageableEntity, ILootable, IInteractable
         throw new System.NotImplementedException();
     }
 
-    public override void OnDespawn()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void OnInteract()
     {
         throw new System.NotImplementedException();

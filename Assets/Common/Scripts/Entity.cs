@@ -16,5 +16,9 @@ public abstract class Entity : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public abstract void OnDespawn();
+    protected virtual void Despawn()
+    {
+        Debug.Log($"{entityName} despawned");
+        Destroy(gameObject);
+    }
 }

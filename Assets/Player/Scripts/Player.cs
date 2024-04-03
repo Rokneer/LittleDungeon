@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : LivingEntity
@@ -6,12 +5,8 @@ public class Player : LivingEntity
     [HideInInspector]
     public ParticleSystem dodgeParticles;
 
-    [Header("Equipment")]
-    public Equipment activeRightHandEquipment;
-    public Equipment activeLeftHandEquipment;
-    public List<Weapon> weaponsInInventory;
-    public List<Shield> shieldsInInventory;
-    public List<Potion> potionsInInventory;
+    [HideInInspector]
+    public InventoryManager inventory;
 
     [Header("Dodge")]
     public AudioClip dodgeSFX;
@@ -40,26 +35,6 @@ public class Player : LivingEntity
     {
         rb = GetComponent<Rigidbody2D>();
         dodgeParticles = GetComponent<ParticleSystem>();
-        foreach (Equipment equipment in GetComponentsInChildren<Equipment>())
-        {
-            switch (equipment)
-            {
-                case Weapon:
-                    activeRightHandEquipment = equipment;
-                    break;
-                case Shield:
-                case Potion:
-                    activeLeftHandEquipment = equipment;
-                    break;
-                default:
-                    Debug.LogError($"ERROR: Invalid equipment of type {equipment}");
-                    break;
-            }
-        }
-    }
-
-    public override void OnDespawn()
-    {
-        throw new System.NotImplementedException();
+        inventory = GetComponent<InventoryManager>();
     }
 }
