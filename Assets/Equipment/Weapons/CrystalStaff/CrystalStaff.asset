@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88560f88f74a5fa49b48e2f5f8423801, type: 3}
   m_Name: CrystalStaff
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6772191363165012041, guid: c62ebfaf6fca7c649886e4c8d2fd6b42, type: 3}
-  itemName: CrystalStaff
+  itemName: Crystal Staff
   type: 0
   sprite: {fileID: 21300000, guid: 5a5fa96729302fb46a9a3f5d6bc14566, type: 3}
   statusEffect: 3

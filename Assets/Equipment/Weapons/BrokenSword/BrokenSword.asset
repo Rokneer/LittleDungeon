@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88560f88f74a5fa49b48e2f5f8423801, type: 3}
   m_Name: BrokenSword
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3961965134689433006, guid: a6c715eb72f611843a1301f46bd662ef, type: 3}
-  itemName: BrokenSword
+  itemName: Broken Sword
   type: 0
   sprite: {fileID: 21300000, guid: 2d2f73151cf684b44a3d66acd90e676f, type: 3}
   statusEffect: 0

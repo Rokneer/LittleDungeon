@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88560f88f74a5fa49b48e2f5f8423801, type: 3}
   m_Name: StaminaPotionSmall
   m_EditorClassIdentifier: 
-  prefab: {fileID: 8116180338920535722, guid: f8580e8c55215b64e95374576fa21ae1, type: 3}
-  itemName: StaminaPotionSmall
+  itemName: Small Stamina Potion
   type: 2
   sprite: {fileID: 21300000, guid: e25970cae38e47e41be06560637f037a, type: 3}
   statusEffect: 0

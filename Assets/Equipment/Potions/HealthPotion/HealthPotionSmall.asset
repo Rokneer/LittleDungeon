@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88560f88f74a5fa49b48e2f5f8423801, type: 3}
   m_Name: HealthPotionSmall
   m_EditorClassIdentifier: 
-  prefab: {fileID: 7214443901098680514, guid: 282b7b8f0f4f8ac449d3fa6a99d270be, type: 3}
-  itemName: HealthPotionSmall
+  itemName: Small Health Potion
   type: 2
   sprite: {fileID: 21300000, guid: b046815cbc377474db7b526d1a6a4a4f, type: 3}
   statusEffect: 0

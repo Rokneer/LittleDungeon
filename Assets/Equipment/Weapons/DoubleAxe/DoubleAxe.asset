@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88560f88f74a5fa49b48e2f5f8423801, type: 3}
   m_Name: DoubleAxe
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3372117026803300808, guid: ac1e392e9cee5ad4dbabd61a9bb523cd, type: 3}
-  itemName: DoubleAxe
+  itemName: Double Axe
   type: 0
   sprite: {fileID: 21300000, guid: da42c39427b43504180982d2b4faacc7, type: 3}
   statusEffect: 0

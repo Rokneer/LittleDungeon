@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88560f88f74a5fa49b48e2f5f8423801, type: 3}
   m_Name: StaminaPotionBig
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5040929621834762382, guid: a4565888b5c6b1647ae4ff9c0c2a18eb, type: 3}
-  itemName: StaminaPotionBig
+  itemName: Big Stamina Potion
   type: 2
   sprite: {fileID: 21300000, guid: 4921021b9f11cb342a55602558474994, type: 3}
   statusEffect: 0

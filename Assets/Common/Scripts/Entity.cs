@@ -1,17 +1,26 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Sprite), typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
 public abstract class Entity : MonoBehaviour
 {
     public string entityName;
 
     [HideInInspector]
     private Sprite _sprite;
-    public Sprite Sprite{
+    public Sprite Sprite
+    {
         get => _sprite;
-        set {
+        set
+        {
             _sprite = value;
-            spriteRenderer.sprite = value;
+            if (spriteRenderer)
+            {
+                spriteRenderer.sprite = value;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().sprite = value;
+            }
         }
     }
 
@@ -21,11 +30,13 @@ public abstract class Entity : MonoBehaviour
     [HideInInspector]
     public Animator animator;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
+
+    protected virtual void Update() { }
 
     protected virtual void Despawn()
     {

@@ -70,7 +70,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         moveInput = moveAction.ReadValue<Vector2>();
-        float currentMovementSpeed = player.movementSpeed;
+        player.SetFacingDirection(moveInput);
+        float currentMovementSpeed = player.MovementSpeed;
         player.rb.velocity = new(
             moveInput.x * currentMovementSpeed,
             moveInput.y * currentMovementSpeed
@@ -86,20 +87,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnAttack(InputAction.CallbackContext context)
     {
-        if (player.inventory.rightHandEquipmentData.type is EquipmentType.Weapon)
+        if (player.inventory.rightHandItem.Equipment.type is EquipmentType.Weapon)
         {
             Debug.Log(
-                $"Attacked with {player.inventory.rightHandEquipmentData.itemName} for {player.CalculateAttackPower(player.inventory.rightHandEquipmentData, player)}!"
+                $"Attacked with {player.inventory.rightHandItem.Equipment.itemName} for {player.CalculateAttackPower(player.inventory.rightHandItem.Equipment, player)}!"
             );
         }
     }
 
     private void OnBlock(InputAction.CallbackContext context)
     {
-        if (player.inventory.leftHandEquipmentData.type is EquipmentType.Shield)
+        if (player.inventory.leftHandItem.Equipment.type is EquipmentType.Shield)
         {
             Debug.Log(
-                $"Blocked with {player.inventory.leftHandEquipmentData.itemName} for {player.CalculateDefensePower(player.inventory.leftHandEquipmentData, player)}!"
+                $"Blocked with {player.inventory.leftHandItem.Equipment.itemName} for {player.CalculateDefensePower(player.inventory.leftHandItem.Equipment, player)}!"
             );
         }
     }
@@ -116,10 +117,10 @@ public class PlayerController : MonoBehaviour
         player.IsDodging = true;
         //* Add dodge impulse
         SoundFXManager.Instance.PlaySoundFXClip(player.dodgeSFX, transform, 1f);
-        yield return new WaitForSeconds(player.dodgeTime);
+        yield return new WaitForSeconds(player.DodgeTime);
         player.IsDodging = false;
         Debug.Log("Dodge done!");
-        yield return new WaitForSeconds(player.dodgeCooldown);
+        yield return new WaitForSeconds(player.DodgeCooldown);
         SoundFXManager.Instance.PlaySoundFXClip(player.dodgeReadySFX, transform, 1f);
         player.dodgeParticles.Play();
         player.CanDodge = true;
@@ -129,13 +130,15 @@ public class PlayerController : MonoBehaviour
     private void OnChangeLeftEquipment(InputAction.CallbackContext context)
     {
         player.inventory.ChangeEquipment(EquipmentSide.Left);
-        Debug.Log($"Left equipment changed to {player.inventory.leftHandEquipmentData.itemName}!");
+        Debug.Log($"Left equipment changed to {player.inventory.leftHandItem.Equipment.itemName}!");
     }
 
     private void OnChangeRightEquipment(InputAction.CallbackContext context)
     {
         player.inventory.ChangeEquipment(EquipmentSide.Right);
-        Debug.Log($"Right equipment changed to {player.inventory.rightHandEquipmentData.itemName}!");
+        Debug.Log(
+            $"Right equipment changed to {player.inventory.rightHandItem.Equipment.itemName}!"
+        );
     }
 
     private void OnInteract(InputAction.CallbackContext context)

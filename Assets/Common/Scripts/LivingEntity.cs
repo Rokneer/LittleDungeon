@@ -2,17 +2,65 @@ using UnityEngine;
 
 public abstract class LivingEntity : DamageableEntity
 {
-    [Header("Stats")]
-    public float stamina = 100;
-    public float movementSpeed = 6;
-    public float attackPower = 10;
-    public float armorPower = 10;
-
     [HideInInspector]
     public Rigidbody2D rb;
 
-    public bool _isFacingRight = true;
-    public bool IsFacingRight
+    [Header("Stamina")]
+    [SerializeField]
+    private float _maxStamina = 100;
+    public virtual float MaxStamina
+    {
+        get => _maxStamina;
+        set => _maxStamina = value;
+    }
+
+    [SerializeField]
+    private float _currentStamina = 100;
+    public virtual float CurrentStamina
+    {
+        get => _currentStamina;
+        set => _currentStamina = value;
+    }
+
+    [Header("Movement")]
+    [SerializeField]
+    private float _movementSpeed = 6;
+    public virtual float MovementSpeed
+    {
+        get => _movementSpeed;
+        set => _movementSpeed = value;
+    }
+
+    [Header("Attack")]
+    [SerializeField]
+    private float _attackPower = 10;
+    public virtual float AttackPower
+    {
+        get => _attackPower;
+        set => _attackPower = value;
+    }
+
+    [Header("Armor")]
+    [SerializeField]
+    private float _armorPower = 10;
+    public virtual float ArmorPower
+    {
+        get => _armorPower;
+        set => _armorPower = value;
+    }
+
+    [SerializeField]
+    private float _armorDurability = 10;
+    public virtual float ArmorDurability
+    {
+        get => _armorDurability;
+        set => _armorDurability = value;
+    }
+
+    [Header("Facing Direction")]
+    [SerializeField]
+    private bool _isFacingRight = true;
+    public virtual bool IsFacingRight
     {
         get => _isFacingRight;
         set
@@ -25,6 +73,12 @@ public abstract class LivingEntity : DamageableEntity
         }
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     public virtual void OnMove()
     {
         Debug.LogWarning($"WARNING {nameof(OnMove)} method has not been implemented");
@@ -32,10 +86,11 @@ public abstract class LivingEntity : DamageableEntity
 
     public virtual void OnAttack()
     {
-        Debug.LogWarning($"WARNING {nameof(OnMove)} method has not been implemented");
+        Debug.LogWarning($"WARNING {nameof(OnAttack)} method has not been implemented");
     }
 
-    public void SetFacingDirection(Vector2 moveInput)
+    //! Consider replacing with pointer data instead of movement data in player
+    public virtual void SetFacingDirection(Vector2 moveInput)
     {
         switch (moveInput.x)
         {
@@ -52,12 +107,12 @@ public abstract class LivingEntity : DamageableEntity
 
     public float CalculateAttackPower(Equipment weapon, LivingEntity entity)
     {
-        return weapon.multiplier * entity.attackPower;
+        return weapon.multiplier * entity.AttackPower;
     }
 
     public float CalculateDefensePower(Equipment shield, LivingEntity entity)
     {
-        return shield.multiplier * entity.armorPower;
+        return shield.multiplier * entity.ArmorPower;
     }
 
     public override void Hit(float damage)

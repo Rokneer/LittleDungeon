@@ -2,21 +2,26 @@ using UnityEngine;
 
 public abstract class DamageableEntity : Entity
 {
-    [HideInInspector]
-    public AudioClip deathSFX;
+    [Space]
     public StatusEffect currentStatusEffect;
 
     [Header("Health")]
-    public float maxHealth = 80;
+    [SerializeField]
+    private float _maxHealth = 80;
+    public virtual float MaxHealth
+    {
+        get => _maxHealth;
+        set => _maxHealth = value;
+    }
 
     [SerializeField]
     private float _currentHealth = 80;
-    public float CurrentHealth
+    public virtual float CurrentHealth
     {
         get => _currentHealth;
         set
         {
-            _currentHealth = Mathf.Clamp(value, 0, maxHealth);
+            _currentHealth = Mathf.Clamp(value, 0, MaxHealth);
             if (_currentHealth <= 0)
             {
                 IsAlive = false;
@@ -32,18 +37,21 @@ public abstract class DamageableEntity : Entity
         set { _isAlive = value; }
     }
 
+    public AudioClip deathSFX;
+
     [Header("Invicibility")]
     public bool isInvicible = false;
     public float invicibilityTime = 0.25f;
     public float timeSinceHit = 0;
 
+    [Space]
     [SerializeField]
     private AudioClip[] damageSFX;
 
     [SerializeField]
     private AudioClip[] healSFX;
 
-    private void Update()
+    protected override void Update()
     {
         if (isInvicible)
         {

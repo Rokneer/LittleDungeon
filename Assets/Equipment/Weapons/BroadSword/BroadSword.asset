@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88560f88f74a5fa49b48e2f5f8423801, type: 3}
   m_Name: BroadSword
   m_EditorClassIdentifier: 
-  prefab: {fileID: 9035366237717723426, guid: d3ef633d1f33b7147b1587de5608954e, type: 3}
-  itemName: BroadSword
+  itemName: Broad Sword
   type: 0
   sprite: {fileID: 21300000, guid: 55efa282f73ba634b9c276cf6e97ccb3, type: 3}
   statusEffect: 0

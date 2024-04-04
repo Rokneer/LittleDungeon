@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88560f88f74a5fa49b48e2f5f8423801, type: 3}
   m_Name: ArmorPotionBig
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6296019232610585005, guid: b5340f345299e6f4ab9b5b3ff3bebd6c, type: 3}
-  itemName: ArmorPotionBig
+  itemName: Big Armor Potion
   type: 2
   sprite: {fileID: 21300000, guid: 68521df957410bd439b5efb632f4d922, type: 3}
   statusEffect: 0

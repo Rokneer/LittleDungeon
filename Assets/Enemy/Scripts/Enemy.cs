@@ -16,8 +16,9 @@ public abstract class Enemy : LivingEntity, ILootable
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         aggroTrigger = GetComponent<CircleCollider2D>();
     }
 

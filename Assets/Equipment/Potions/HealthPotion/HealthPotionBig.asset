@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88560f88f74a5fa49b48e2f5f8423801, type: 3}
   m_Name: HealthPotionBig
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2213400888399074380, guid: c78929f376ce47d4f97b61bcdcf3a287, type: 3}
-  itemName: HealthPotionBig
+  itemName: Big Health Potion
   type: 2
   sprite: {fileID: 21300000, guid: 425e26b83d6be5b49a702618e6360873, type: 3}
   statusEffect: 0

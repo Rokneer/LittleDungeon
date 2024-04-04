@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88560f88f74a5fa49b48e2f5f8423801, type: 3}
   m_Name: ArmorPotionSmall
   m_EditorClassIdentifier: 
-  prefab: {fileID: 421688774996001901, guid: aae85e92b2c53a246b40df2d9492c87f, type: 3}
-  itemName: ArmorPotionSmall
+  itemName: Small Armor Potion
   type: 2
   sprite: {fileID: 21300000, guid: 4d953b405cd991b499cec6188f5bf205, type: 3}
   statusEffect: 0

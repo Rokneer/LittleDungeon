@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88560f88f74a5fa49b48e2f5f8423801, type: 3}
   m_Name: CurePotionSmall
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5431132534732171626, guid: 9051e1b63a3491e4bb24ea74f15ee58f, type: 3}
-  itemName: CurePotionSmall
+  itemName: Small Cure Potion
   type: 2
   sprite: {fileID: 21300000, guid: 858a1704d82978a478522d4a4fa5bafb, type: 3}
   statusEffect: 0
