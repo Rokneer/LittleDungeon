@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
 public abstract class Entity : MonoBehaviour
 {
     public string entityName;

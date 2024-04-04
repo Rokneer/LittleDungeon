@@ -64,13 +64,12 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         pointerInput = GetPointerInput();
-        weaponParent.pointerPosition = pointerInput;
+        player.SetFacingDirection(pointerInput);
     }
 
     private void FixedUpdate()
     {
         moveInput = moveAction.ReadValue<Vector2>();
-        player.SetFacingDirection(moveInput);
         float currentMovementSpeed = player.MovementSpeed;
         player.rb.velocity = new(
             moveInput.x * currentMovementSpeed,

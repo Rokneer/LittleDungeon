@@ -89,7 +89,6 @@ public abstract class LivingEntity : DamageableEntity
         Debug.LogWarning($"WARNING {nameof(OnAttack)} method has not been implemented");
     }
 
-    //! Consider replacing with pointer data instead of movement data in player
     public virtual void SetFacingDirection(Vector2 moveInput)
     {
         switch (moveInput.x)
@@ -101,7 +100,7 @@ public abstract class LivingEntity : DamageableEntity
                 IsFacingRight = false;
                 break;
             case 0:
-                return;
+                break;
         }
     }
 

@@ -157,6 +157,8 @@ public class Player : LivingEntity
     public AudioClip dodgeSFX;
     public AudioClip dodgeReadySFX;
 
+    public GameObject rightHand;
+
     protected override void Awake()
     {
         base.Awake();
@@ -175,5 +177,26 @@ public class Player : LivingEntity
         DodgeTime = stats.dodgeTime;
         DodgeCooldown = stats.dodgeCooldown;
         IsFacingRight = stats.isFacingRight;
+    }
+
+    public override void SetFacingDirection(Vector2 pointerInput)
+    {
+        Vector2 delta = pointerInput - (Vector2)transform.position;
+
+
+
+        switch (delta.x)
+        {
+            case >= 0:
+                rightHand.transform.right = delta;
+                if(!IsFacingRight) IsFacingRight = true;
+                break;
+            case < 0:
+                rightHand.transform.right = -delta;
+                if(IsFacingRight) IsFacingRight = false;
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -21654,6 +21654,11 @@ Transform:
   - {fileID: 1916054005}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1728264719 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4889012410761781089, guid: b6cb3438aae94ce43901d7e288eebbbb, type: 3}
+  m_PrefabInstance: {fileID: 663426696503447248}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1777107233
 GameObject:
   m_ObjectHideFlags: 0
@@ -22505,6 +22510,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6959770978375093706, guid: b6cb3438aae94ce43901d7e288eebbbb, type: 3}
+      propertyPath: rightHand
+      value: 
+      objectReference: {fileID: 1728264719}
     - target: {fileID: 113274365859468851, guid: b6cb3438aae94ce43901d7e288eebbbb, type: 3}
       propertyPath: m_Name
       value: Player
@@ -22550,22 +22559,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6559132551022939259, guid: b6cb3438aae94ce43901d7e288eebbbb, type: 3}
-      propertyPath: _maxHealth
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 6559132551022939259, guid: b6cb3438aae94ce43901d7e288eebbbb, type: 3}
-      propertyPath: _maxStamina
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6559132551022939259, guid: b6cb3438aae94ce43901d7e288eebbbb, type: 3}
-      propertyPath: _currentHealth
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 6559132551022939259, guid: b6cb3438aae94ce43901d7e288eebbbb, type: 3}
-      propertyPath: _currentStamina
-      value: 50
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+      propertyPath: rightHand
+      value: 
+      objectReference: {fileID: 1728264719}
+    m_RemovedComponents:
+    - {fileID: 2207063609554516778, guid: b6cb3438aae94ce43901d7e288eebbbb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
