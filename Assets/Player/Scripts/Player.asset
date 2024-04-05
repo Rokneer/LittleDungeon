@@ -18,6 +18,8 @@ MonoBehaviour:
   currentStamina: 50
   movementSpeed: 6
   attackPower: 1
+  weaponUseDelay: 0
+  shieldUseDelay: 0
   armorPower: 50
   armorDurability: 6
   dodgeImpulse: 20

@@ -15,7 +15,7 @@ public class Equipment : ScriptableObject
     public StatusEffect statusEffect;
 
     [Space]
-    public float useSpeed;
+    public float useDelayMultiplier;
 
     [Space]
     public float multiplier;

@@ -5047,6 +5047,7 @@ MonoBehaviour:
   _isDodging: 0
   dodgeSFX: {fileID: 8300000, guid: 8a1f1ffe497e30342ba6af1f54cf7c79, type: 3}
   dodgeReadySFX: {fileID: 8300000, guid: 8a1f1ffe497e30342ba6af1f54cf7c79, type: 3}
+  rightHand: {fileID: 4889012410761781089}
 --- !u!114 &5419286434471308622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5336,13 +5337,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4538726104917128912}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.37486303, w: 0.9270803}
-  m_LocalPosition: {x: 0.311, y: 0.297, z: 0}
+  m_LocalRotation: {x: 0, y: -0, z: 0.7071068, w: -0.7071068}
+  m_LocalPosition: {x: 0.428, y: 0.046, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6822897317374847487}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -44.032}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
 --- !u!212 &2805218824129200212
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5441,7 +5442,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6822897317374847487}
-  - component: {fileID: 2207063609554516778}
   m_Layer: 0
   m_Name: RightHand
   m_TagString: Untagged
@@ -5458,23 +5458,10 @@ Transform:
   m_GameObject: {fileID: 4889012410761781089}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.358, y: -0.304, z: 0}
+  m_LocalPosition: {x: 0.356, y: -0.363, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8977991783054260401}
   m_Father: {fileID: 3248499623051057550}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2207063609554516778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4889012410761781089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fdb5096cea81de469cd084b3faa7d49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointerPosition: {x: 0, y: 0}

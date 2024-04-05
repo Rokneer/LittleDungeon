@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private Player player;
+    private Animator animator;
 
     private PlayerInput playerInput;
     private InputAction moveAction;
@@ -19,13 +20,12 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveInput;
 
-    private WeaponParent weaponParent;
     private Vector2 pointerInput;
 
     private void Awake()
     {
         player = GetComponent<Player>();
-        weaponParent = GetComponentInChildren<WeaponParent>();
+        animator = GetComponent<Animator>();
 
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
@@ -86,27 +86,86 @@ public class PlayerController : MonoBehaviour
 
     private void OnAttack(InputAction.CallbackContext context)
     {
-        if (player.inventory.rightHandItem.Equipment.type is EquipmentType.Weapon)
+        if (
+            player.inventory.rightHandItem.Equipment.type is EquipmentType.Weapon
+            && player.IsAlive
+            && player.CanAttack
+        )
         {
-            Debug.Log(
-                $"Attacked with {player.inventory.rightHandItem.Equipment.itemName} for {player.CalculateAttackPower(player.inventory.rightHandItem.Equipment, player)}!"
-            );
+            StartCoroutine(Attack());
         }
+    }
+
+    private IEnumerator Attack()
+    {
+        Debug.Log(
+            $"Attacked with {player.inventory.rightHandItem.Equipment.itemName} for {player.CalculateAttackPower(player.inventory.rightHandItem.Equipment, player)}!"
+        );
+
+        player.CanAttack = false;
+        player.IsAttacking = true;
+
+        player.weaponAnimator.SetTrigger(AnimationStrings.Attack);
+        SoundFXManager
+            .Instance
+            .PlaySoundFXClip(player.inventory.rightHandItem.Equipment.actionSFX, transform, 1f);
+
+        yield return new WaitForSeconds(
+            player.weaponAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.length
+        );
+        player.IsAttacking = false;
+        Debug.Log("Attack done!");
+        //! TODO: Correct delay on Scriptable Objects
+        yield return new WaitForSeconds(player.WeaponUseDelay);
+        SoundFXManager.Instance.PlaySoundFXClip(player.attackReadySFX, transform, 1f);
+        player.CanAttack = true;
+        Debug.Log("Attack recharged!");
     }
 
     private void OnBlock(InputAction.CallbackContext context)
     {
-        if (player.inventory.leftHandItem.Equipment.type is EquipmentType.Shield)
+        if (
+            player.inventory.leftHandItem.Equipment.type is EquipmentType.Shield
+            && player.IsAlive
+            && player.CanBlock
+        )
         {
-            Debug.Log(
-                $"Blocked with {player.inventory.leftHandItem.Equipment.itemName} for {player.CalculateDefensePower(player.inventory.leftHandItem.Equipment, player)}!"
-            );
+            StartCoroutine(Block());
         }
+    }
+
+    private IEnumerator Block()
+    {
+        Debug.Log(
+            $"Blocked with {player.inventory.leftHandItem.Equipment.itemName} for {player.CalculateDefensePower(player.inventory.leftHandItem.Equipment, player)}!"
+        );
+
+        player.CanBlock = false;
+        player.IsBlocking = true;
+
+        player.weaponAnimator.SetTrigger(AnimationStrings.isBlocking);
+        SoundFXManager
+            .Instance
+            .PlaySoundFXClip(player.inventory.leftHandItem.Equipment.actionSFX, transform, 1f);
+
+        yield return new WaitForSeconds(
+            player.weaponAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.length
+        );
+        player.IsBlocking = false;
+        Debug.Log("Block done!");
+        //! TODO: Correct delay on Scriptable Objects
+        yield return new WaitForSeconds(player.ShieldUseDelay);
+        SoundFXManager.Instance.PlaySoundFXClip(player.blockReadySFX, transform, 1f);
+        player.CanBlock = true;
+        Debug.Log("Block recharged!");
     }
 
     private void OnDodge(InputAction.CallbackContext context)
     {
-        StartCoroutine(Dodge());
+        if (player.IsAlive && player.CanDodge)
+        {
+            StartCoroutine(Dodge());
+        }
     }
 
     private IEnumerator Dodge()
@@ -115,13 +174,15 @@ public class PlayerController : MonoBehaviour
         player.CanDodge = false;
         player.IsDodging = true;
         //* Add dodge impulse
+        player.dodgeParticles.Play();
         SoundFXManager.Instance.PlaySoundFXClip(player.dodgeSFX, transform, 1f);
+
         yield return new WaitForSeconds(player.DodgeTime);
         player.IsDodging = false;
         Debug.Log("Dodge done!");
+
         yield return new WaitForSeconds(player.DodgeCooldown);
         SoundFXManager.Instance.PlaySoundFXClip(player.dodgeReadySFX, transform, 1f);
-        player.dodgeParticles.Play();
         player.CanDodge = true;
         Debug.Log("Dodge recharged!");
     }

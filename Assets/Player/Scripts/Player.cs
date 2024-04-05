@@ -137,33 +137,102 @@ public class Player : LivingEntity
             /* _trail.emitting = value; */
         }
     }
+
+    [SerializeField]
     private bool _canDodge = true;
     public bool CanDodge
     {
         get => _canDodge;
         set => _canDodge = IsAlive && value;
     }
-
-    public override bool IsFacingRight
-    {
-        get => base.IsFacingRight;
-        set
-        {
-            base.IsFacingRight = value;
-            stats.isFacingRight = value;
-        }
-    }
-
     public AudioClip dodgeSFX;
     public AudioClip dodgeReadySFX;
 
+    [Header("Attack")]
     public GameObject rightHand;
+
+    [SerializeField]
+    private float _weaponUseDelay = 1;
+    public float WeaponUseDelay
+    {
+        get => _weaponUseDelay;
+        set
+        {
+            _weaponUseDelay = Mathf.Clamp(
+                value * inventory.rightHandItem.Equipment.useDelayMultiplier,
+                0,
+                float.PositiveInfinity
+            );
+            stats.weaponUseDelay = _weaponUseDelay;
+        }
+    }
+
+    [SerializeField]
+    private bool _isAttacking = false;
+    public bool IsAttacking
+    {
+        get => _isAttacking;
+        set { _isAttacking = value; }
+    }
+
+    [SerializeField]
+    private bool _canAttack = true;
+    public bool CanAttack
+    {
+        get => _canAttack;
+        set => _canAttack = IsAlive && value;
+    }
+    public AudioClip attackReadySFX;
+
+    [HideInInspector]
+    public Animator weaponAnimator;
+
+    [Header("Block")]
+    public GameObject leftHand;
+
+    [SerializeField]
+    private float _shieldUseDelay = 1;
+    public float ShieldUseDelay
+    {
+        get => _shieldUseDelay;
+        set
+        {
+            _shieldUseDelay = Mathf.Clamp(
+                value * inventory.leftHandItem.Equipment.useDelayMultiplier,
+                0,
+                float.PositiveInfinity
+            );
+            stats.shieldUseDelay = _shieldUseDelay;
+        }
+    }
+
+    [SerializeField]
+    private bool _isBlocking = false;
+    public bool IsBlocking
+    {
+        get => _isBlocking;
+        set { _isBlocking = value; }
+    }
+
+    [SerializeField]
+    private bool _canBlock = true;
+    public bool CanBlock
+    {
+        get => _canBlock;
+        set => _canBlock = IsAlive && value;
+    }
+    public AudioClip blockReadySFX;
+
+    [HideInInspector]
+    public Animator shieldAnimator;
 
     protected override void Awake()
     {
         base.Awake();
         dodgeParticles = GetComponent<ParticleSystem>();
         inventory = GetComponent<InventoryManager>();
+        weaponAnimator = rightHand.GetComponentInChildren<Animator>();
+        shieldAnimator = leftHand.GetComponentInChildren<Animator>();
 
         MaxHealth = stats.maxHealth;
         CurrentHealth = stats.currentHealth;
@@ -177,23 +246,29 @@ public class Player : LivingEntity
         DodgeTime = stats.dodgeTime;
         DodgeCooldown = stats.dodgeCooldown;
         IsFacingRight = stats.isFacingRight;
+        WeaponUseDelay = stats.weaponUseDelay;
+        ShieldUseDelay = stats.shieldUseDelay;
     }
 
     public override void SetFacingDirection(Vector2 pointerInput)
     {
-        Vector2 delta = pointerInput - (Vector2)transform.position;
+        Vector2 distance = pointerInput - (Vector2)transform.position;
 
-
-
-        switch (delta.x)
+        switch (distance.x)
         {
-            case >= 0:
-                rightHand.transform.right = delta;
-                if(!IsFacingRight) IsFacingRight = true;
+            case > 0:
+                rightHand.transform.right = distance;
+                if (!IsFacingRight)
+                {
+                    IsFacingRight = true;
+                }
                 break;
             case < 0:
-                rightHand.transform.right = -delta;
-                if(IsFacingRight) IsFacingRight = false;
+                rightHand.transform.right = -distance;
+                if (IsFacingRight)
+                {
+                    IsFacingRight = false;
+                }
                 break;
             default:
                 break;

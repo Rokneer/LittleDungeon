@@ -16,6 +16,10 @@ public class PlayerStats : ScriptableObject
 
     [Header("Attack")]
     public float attackPower;
+    public float weaponUseDelay;
+
+    [Header("Block")]
+    public float shieldUseDelay;
 
     [Header("Armor")]
     public float armorPower;
