@@ -13,7 +13,6 @@ public class Player : LivingEntity
 
     public override float MaxHealth
     {
-        get => base.MaxHealth;
         set
         {
             base.MaxHealth = value;
@@ -23,7 +22,6 @@ public class Player : LivingEntity
 
     public override float CurrentHealth
     {
-        get => base.CurrentHealth;
         set
         {
             base.CurrentHealth = value;
@@ -33,7 +31,6 @@ public class Player : LivingEntity
 
     public override float MaxStamina
     {
-        get => base.MaxStamina;
         set
         {
             base.MaxStamina = value;
@@ -42,7 +39,6 @@ public class Player : LivingEntity
     }
     public override float CurrentStamina
     {
-        get => base.CurrentStamina;
         set
         {
             base.CurrentStamina = value;
@@ -52,7 +48,6 @@ public class Player : LivingEntity
 
     public override float MovementSpeed
     {
-        get => base.MovementSpeed;
         set
         {
             base.MovementSpeed = value;

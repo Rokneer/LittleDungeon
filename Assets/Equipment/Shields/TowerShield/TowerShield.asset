@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88560f88f74a5fa49b48e2f5f8423801, type: 3}
   m_Name: TowerShield
   m_EditorClassIdentifier: 
-  prefab: {fileID: 9012570924596494821, guid: e184ebb45b272b44ab125d4579becbca, type: 3}
   itemName: Tower Shield
   type: 1
   sprite: {fileID: 21300000, guid: 3683bf6a77bd52c49a6eda737927a799, type: 3}
   statusEffect: 2
-  useSpeed: 0.7
+  useDelayMultiplier: 2
   multiplier: 3
   pickUpSFX: {fileID: 8300000, guid: 8a1f1ffe497e30342ba6af1f54cf7c79, type: 3}
   actionSFX: {fileID: 8300000, guid: 8a1f1ffe497e30342ba6af1f54cf7c79, type: 3}

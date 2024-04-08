@@ -24,11 +24,41 @@ public abstract class LivingEntity : DamageableEntity
 
     [Header("Movement")]
     [SerializeField]
-    private float _movementSpeed = 6;
+    private bool _canMove = true;
+    public bool CanMove
+    {
+        get => _canMove;
+        set => _canMove = value;
+    }
+
+    [SerializeField]
+    private bool _isMoving = false;
+    public bool IsMoving
+    {
+        get => _isMoving;
+        set
+        {
+            _isMoving = value;
+            animator.SetBool(AnimationStrings.isMoving, value);
+        }
+    }
+
+    public float _movementSpeed = 6;
     public virtual float MovementSpeed
     {
         get => _movementSpeed;
         set => _movementSpeed = value;
+    }
+    public float CurrentMoveSpeed
+    {
+        get
+        {
+            if (IsMoving && CanMove)
+            {
+                return MovementSpeed;
+            }
+            return 0;
+        }
     }
 
     [Header("Attack")]

@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88560f88f74a5fa49b48e2f5f8423801, type: 3}
   m_Name: KiteShield
   m_EditorClassIdentifier: 
-  prefab: {fileID: 9012570924596494821, guid: 1bb35f82f563e3f40b1f3428ca4b593c, type: 3}
   itemName: Kite Shield
   type: 1
   sprite: {fileID: 21300000, guid: 45304778ff1e71949835aeefc2fc594e, type: 3}
   statusEffect: 0
-  useSpeed: 1
+  useDelayMultiplier: 1
   multiplier: 1
   pickUpSFX: {fileID: 8300000, guid: 8a1f1ffe497e30342ba6af1f54cf7c79, type: 3}
   actionSFX: {fileID: 8300000, guid: 8a1f1ffe497e30342ba6af1f54cf7c79, type: 3}

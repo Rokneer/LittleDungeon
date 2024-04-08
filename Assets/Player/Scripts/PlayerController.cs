@@ -42,7 +42,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         attackAction.started += OnAttack;
-        blockAction.started += OnBlock;
+        blockAction.started += OnBlockStart;
+        blockAction.canceled += OnBlockEnd;
         dodgeAction.started += OnDodge;
         changeLeftEquipmentAction.started += OnChangeLeftEquipment;
         changeRightEquipmentAction.started += OnChangeRightEquipment;
@@ -53,7 +54,8 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         attackAction.started -= OnAttack;
-        blockAction.started -= OnBlock;
+        blockAction.started -= OnBlockStart;
+        blockAction.canceled -= OnBlockEnd;
         dodgeAction.started -= OnDodge;
         changeLeftEquipmentAction.started -= OnChangeLeftEquipment;
         changeRightEquipmentAction.started -= OnChangeRightEquipment;
@@ -69,12 +71,23 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        moveInput = moveAction.ReadValue<Vector2>();
-        float currentMovementSpeed = player.MovementSpeed;
-        player.rb.velocity = new(
-            moveInput.x * currentMovementSpeed,
-            moveInput.y * currentMovementSpeed
-        );
+        if (!player.IsDodging)
+        {
+            if (player.IsAlive)
+            {
+                Debug.Log(moveInput);
+                player.IsMoving = moveInput != Vector2.zero;
+                moveInput = moveAction.ReadValue<Vector2>();
+            }
+            else
+            {
+                player.IsMoving = false;
+            }
+            player.rb.velocity = new(
+                moveInput.x * player.CurrentMoveSpeed,
+                moveInput.y * player.CurrentMoveSpeed
+            );
+        }
     }
 
     private Vector2 GetPointerInput()
@@ -122,7 +135,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Attack recharged!");
     }
 
-    private void OnBlock(InputAction.CallbackContext context)
+    private void OnBlockStart(InputAction.CallbackContext context)
     {
         if (
             player.inventory.leftHandItem.Equipment.type is EquipmentType.Shield
@@ -130,34 +143,48 @@ public class PlayerController : MonoBehaviour
             && player.CanBlock
         )
         {
-            StartCoroutine(Block());
+            Debug.Log(
+                $"Blocked with {player.inventory.leftHandItem.Equipment.itemName} for {player.CalculateDefensePower(player.inventory.leftHandItem.Equipment, player)}!"
+            );
+
+            player.CanBlock = false;
+            player.IsBlocking = true;
+
+            player.shieldAnimator.SetBool(AnimationStrings.isBlocking, true);
+            SoundFXManager
+                .Instance
+                .PlaySoundFXClip(player.inventory.leftHandItem.Equipment.actionSFX, transform, 1f);
         }
     }
 
-    private IEnumerator Block()
+    private void OnBlockEnd(InputAction.CallbackContext context)
     {
-        Debug.Log(
-            $"Blocked with {player.inventory.leftHandItem.Equipment.itemName} for {player.CalculateDefensePower(player.inventory.leftHandItem.Equipment, player)}!"
+        if (
+            player.inventory.leftHandItem.Equipment.type is EquipmentType.Shield
+            && player.IsAlive
+            && !player.CanBlock
+        )
+        {
+            StartCoroutine(EndBlock());
+        }
+    }
+
+    private IEnumerator EndBlock()
+    {
+        Debug.Log($"Blocking ended with {player.inventory.leftHandItem.Equipment.itemName}!");
+
+        player.IsBlocking = false;
+        player.shieldAnimator.SetBool(AnimationStrings.isBlocking, false);
+
+        yield return new WaitForSeconds(
+            player.inventory.leftHandItem.Equipment.useDelayMultiplier * 1
         );
 
-        player.CanBlock = false;
-        player.IsBlocking = true;
+        player.CanBlock = true;
 
-        player.weaponAnimator.SetTrigger(AnimationStrings.isBlocking);
         SoundFXManager
             .Instance
             .PlaySoundFXClip(player.inventory.leftHandItem.Equipment.actionSFX, transform, 1f);
-
-        yield return new WaitForSeconds(
-            player.weaponAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.length
-        );
-        player.IsBlocking = false;
-        Debug.Log("Block done!");
-        //! TODO: Correct delay on Scriptable Objects
-        yield return new WaitForSeconds(player.ShieldUseDelay);
-        SoundFXManager.Instance.PlaySoundFXClip(player.blockReadySFX, transform, 1f);
-        player.CanBlock = true;
-        Debug.Log("Block recharged!");
     }
 
     private void OnDodge(InputAction.CallbackContext context)
@@ -172,8 +199,10 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Dodging!");
         player.CanDodge = false;
+        player.CanBlock = false;
+        player.CanAttack = false;
         player.IsDodging = true;
-        //* Add dodge impulse
+        player.rb.velocity = new(transform.localScale.x * player.DodgeImpulse, 0f);
         player.dodgeParticles.Play();
         SoundFXManager.Instance.PlaySoundFXClip(player.dodgeSFX, transform, 1f);
 
@@ -184,6 +213,9 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(player.DodgeCooldown);
         SoundFXManager.Instance.PlaySoundFXClip(player.dodgeReadySFX, transform, 1f);
         player.CanDodge = true;
+        player.CanBlock = true;
+        player.CanAttack = true;
+
         Debug.Log("Dodge recharged!");
     }
 

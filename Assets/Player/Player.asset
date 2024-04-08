@@ -19,7 +19,7 @@ MonoBehaviour:
   movementSpeed: 6
   attackPower: 1
   weaponUseDelay: 0
-  shieldUseDelay: 0
+  shieldUseDelay: 1
   armorPower: 50
   armorDurability: 6
   dodgeImpulse: 20
