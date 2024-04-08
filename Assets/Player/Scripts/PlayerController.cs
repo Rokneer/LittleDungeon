@@ -75,7 +75,6 @@ public class PlayerController : MonoBehaviour
         {
             if (player.IsAlive)
             {
-                Debug.Log(moveInput);
                 player.IsMoving = moveInput != Vector2.zero;
                 moveInput = moveAction.ReadValue<Vector2>();
             }
