@@ -25,6 +25,7 @@ public abstract class DamageableEntity : Entity
             if (_currentHealth <= 0)
             {
                 IsAlive = false;
+                Despawn();
             }
         }
     }
@@ -34,7 +35,7 @@ public abstract class DamageableEntity : Entity
     public bool IsAlive
     {
         get => _isAlive;
-        set { _isAlive = value; }
+        set => _isAlive = value;
     }
 
     public AudioClip deathSFX;
@@ -77,7 +78,7 @@ public abstract class DamageableEntity : Entity
         }
     }
 
-    public virtual void Hit(float damage)
+    private void Hit(float damage)
     {
         CurrentHealth -= damage;
         isInvicible = true;

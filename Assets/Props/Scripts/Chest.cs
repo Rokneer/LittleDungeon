@@ -4,7 +4,7 @@ public class Chest : DamageableEntity, ILootable, IInteractable
 {
     private bool isOpen;
 
-    public void DropLoot(DamageableEntity entity, int LootLevel)
+    public void DropLoot()
     {
         throw new System.NotImplementedException();
     }

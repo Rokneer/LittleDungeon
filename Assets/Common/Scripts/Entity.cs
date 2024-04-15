@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    public string entityName;
+    protected string entityName;
 
     [HideInInspector]
     private Sprite _sprite;
@@ -24,10 +24,10 @@ public abstract class Entity : MonoBehaviour
     }
 
     [HideInInspector]
-    public SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
 
     [HideInInspector]
-    public Animator animator;
+    protected Animator animator;
 
     protected virtual void Awake()
     {

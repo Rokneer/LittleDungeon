@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private Player player;
-    private Animator animator;
 
     private PlayerInput playerInput;
     private InputAction moveAction;
@@ -25,7 +24,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         player = GetComponent<Player>();
-        animator = GetComponent<Animator>();
 
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
@@ -65,7 +63,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        pointerInput = GetPointerInput();
+        if (!player.IsAttacking)
+        {
+            pointerInput = GetPointerInput();
+        }
         player.SetFacingDirection(pointerInput);
     }
 
@@ -110,10 +111,6 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        Debug.Log(
-            $"Attacked with {player.inventory.rightHandItem.Equipment.itemName} for {player.CalculateAttackPower(player.inventory.rightHandItem.Equipment, player)}!"
-        );
-
         player.CanAttack = false;
         player.IsAttacking = true;
 
@@ -122,16 +119,14 @@ public class PlayerController : MonoBehaviour
             .Instance
             .PlaySoundFXClip(player.inventory.rightHandItem.Equipment.actionSFX, transform, 1f);
 
-        yield return new WaitForSeconds(
-            player.weaponAnimator.GetCurrentAnimatorClipInfo(0)[0].clip.length
-        );
-        player.IsAttacking = false;
-        Debug.Log("Attack done!");
-        //! TODO: Correct delay on Scriptable Objects
         yield return new WaitForSeconds(player.WeaponUseDelay);
         SoundFXManager.Instance.PlaySoundFXClip(player.attackReadySFX, transform, 1f);
         player.CanAttack = true;
-        Debug.Log("Attack recharged!");
+    }
+
+    public void ResetIsAttacking()
+    {
+        player.IsAttacking = false;
     }
 
     private void OnBlockStart(InputAction.CallbackContext context)
@@ -142,10 +137,6 @@ public class PlayerController : MonoBehaviour
             && player.CanBlock
         )
         {
-            Debug.Log(
-                $"Blocked with {player.inventory.leftHandItem.Equipment.itemName} for {player.CalculateDefensePower(player.inventory.leftHandItem.Equipment, player)}!"
-            );
-
             player.CanBlock = false;
             player.IsBlocking = true;
 
@@ -170,8 +161,6 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator EndBlock()
     {
-        Debug.Log($"Blocking ended with {player.inventory.leftHandItem.Equipment.itemName}!");
-
         player.IsBlocking = false;
         player.shieldAnimator.SetBool(AnimationStrings.isBlocking, false);
 
@@ -196,7 +185,6 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Dodge()
     {
-        Debug.Log("Dodging!");
         player.CanDodge = false;
         player.CanBlock = false;
         player.CanAttack = false;
@@ -207,29 +195,22 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(player.DodgeTime);
         player.IsDodging = false;
-        Debug.Log("Dodge done!");
 
         yield return new WaitForSeconds(player.DodgeCooldown);
         SoundFXManager.Instance.PlaySoundFXClip(player.dodgeReadySFX, transform, 1f);
         player.CanDodge = true;
         player.CanBlock = true;
         player.CanAttack = true;
-
-        Debug.Log("Dodge recharged!");
     }
 
     private void OnChangeLeftEquipment(InputAction.CallbackContext context)
     {
         player.inventory.ChangeEquipment(EquipmentSide.Left);
-        Debug.Log($"Left equipment changed to {player.inventory.leftHandItem.Equipment.itemName}!");
     }
 
     private void OnChangeRightEquipment(InputAction.CallbackContext context)
     {
         player.inventory.ChangeEquipment(EquipmentSide.Right);
-        Debug.Log(
-            $"Right equipment changed to {player.inventory.rightHandItem.Equipment.itemName}!"
-        );
     }
 
     private void OnInteract(InputAction.CallbackContext context)

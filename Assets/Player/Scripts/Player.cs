@@ -83,6 +83,30 @@ public class Player : LivingEntity
             stats.armorDurability = value;
         }
     }
+    public override float WeaponUseDelay
+    {
+        set
+        {
+            base.WeaponUseDelay = Mathf.Clamp(
+                value * inventory.rightHandItem.Equipment.useDelayMultiplier,
+                0,
+                float.PositiveInfinity
+            );
+            stats.weaponUseDelay = value;
+        }
+    }
+    public override float ShieldUseDelay
+    {
+        set
+        {
+            base.ShieldUseDelay = Mathf.Clamp(
+                value * inventory.leftHandItem.Equipment.useDelayMultiplier,
+                0,
+                float.PositiveInfinity
+            );
+            stats.shieldUseDelay = value;
+        }
+    }
 
     [Header("Dodge")]
     [SerializeField]
@@ -143,84 +167,6 @@ public class Player : LivingEntity
     public AudioClip dodgeSFX;
     public AudioClip dodgeReadySFX;
 
-    [Header("Attack")]
-    public GameObject rightHand;
-
-    [SerializeField]
-    private float _weaponUseDelay = 1;
-    public float WeaponUseDelay
-    {
-        get => _weaponUseDelay;
-        set
-        {
-            _weaponUseDelay = Mathf.Clamp(
-                value * inventory.rightHandItem.Equipment.useDelayMultiplier,
-                0,
-                float.PositiveInfinity
-            );
-            stats.weaponUseDelay = _weaponUseDelay;
-        }
-    }
-
-    [SerializeField]
-    private bool _isAttacking = false;
-    public bool IsAttacking
-    {
-        get => _isAttacking;
-        set { _isAttacking = value; }
-    }
-
-    [SerializeField]
-    private bool _canAttack = true;
-    public bool CanAttack
-    {
-        get => _canAttack;
-        set => _canAttack = IsAlive && value;
-    }
-    public AudioClip attackReadySFX;
-
-    [HideInInspector]
-    public Animator weaponAnimator;
-
-    [Header("Block")]
-    public GameObject leftHand;
-
-    [SerializeField]
-    private float _shieldUseDelay = 1;
-    public float ShieldUseDelay
-    {
-        get => _shieldUseDelay;
-        set
-        {
-            _shieldUseDelay = Mathf.Clamp(
-                value * inventory.leftHandItem.Equipment.useDelayMultiplier,
-                0,
-                float.PositiveInfinity
-            );
-            stats.shieldUseDelay = _shieldUseDelay;
-        }
-    }
-
-    [SerializeField]
-    private bool _isBlocking = false;
-    public bool IsBlocking
-    {
-        get => _isBlocking;
-        set { _isBlocking = value; }
-    }
-
-    [SerializeField]
-    private bool _canBlock = true;
-    public bool CanBlock
-    {
-        get => _canBlock;
-        set => _canBlock = IsAlive && value;
-    }
-    public AudioClip blockReadySFX;
-
-    [HideInInspector]
-    public Animator shieldAnimator;
-
     protected override void Awake()
     {
         base.Awake();
@@ -230,7 +176,7 @@ public class Player : LivingEntity
         shieldAnimator = leftHand.GetComponentInChildren<Animator>();
 
         MaxHealth = stats.maxHealth;
-        CurrentHealth = stats.currentHealth;
+        CurrentHealth = stats.currentHealth == 0 ? stats.maxHealth : stats.currentHealth;
         MaxStamina = stats.maxStamina;
         CurrentStamina = stats.currentStamina;
         MovementSpeed = stats.movementSpeed;

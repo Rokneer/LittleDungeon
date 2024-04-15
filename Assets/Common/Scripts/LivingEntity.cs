@@ -43,7 +43,8 @@ public abstract class LivingEntity : DamageableEntity
         }
     }
 
-    public float _movementSpeed = 6;
+    [SerializeField]
+    private float _movementSpeed = 6;
     public virtual float MovementSpeed
     {
         get => _movementSpeed;
@@ -87,6 +88,68 @@ public abstract class LivingEntity : DamageableEntity
         set => _armorDurability = value;
     }
 
+    [Header("Attack")]
+    public GameObject rightHand;
+
+    [SerializeField]
+    private float _weaponUseDelay = 1;
+    public virtual float WeaponUseDelay
+    {
+        get => _weaponUseDelay;
+        set => _weaponUseDelay = Mathf.Clamp(value, 0, 100);
+    }
+
+    [SerializeField]
+    private bool _isAttacking = false;
+    public bool IsAttacking
+    {
+        get => _isAttacking;
+        set => _isAttacking = value;
+    }
+
+    [SerializeField]
+    private bool _canAttack = true;
+    public bool CanAttack
+    {
+        get => _canAttack;
+        set => _canAttack = IsAlive && value;
+    }
+    public AudioClip attackReadySFX;
+
+    [HideInInspector]
+    public Animator weaponAnimator;
+
+    [Header("Block")]
+    public GameObject leftHand;
+
+    [SerializeField]
+    private float _shieldUseDelay = 1;
+    public virtual float ShieldUseDelay
+    {
+        get => _shieldUseDelay;
+        set => _shieldUseDelay = Mathf.Clamp(value, 0, 100);
+    }
+
+    [SerializeField]
+    private bool _isBlocking = false;
+    public bool IsBlocking
+    {
+        get => _isBlocking;
+        set => _isBlocking = value;
+    }
+
+    [SerializeField]
+    private bool _canBlock = true;
+    public bool CanBlock
+    {
+        get => _canBlock;
+        set => _canBlock = IsAlive && value;
+    }
+    public AudioClip blockReadySFX;
+
+    [HideInInspector]
+    public Animator shieldAnimator;
+
     [Header("Facing Direction")]
     [SerializeField]
     private bool _isFacingRight = true;
@@ -107,16 +170,6 @@ public abstract class LivingEntity : DamageableEntity
     {
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
-    }
-
-    public virtual void OnMove()
-    {
-        Debug.LogWarning($"WARNING {nameof(OnMove)} method has not been implemented");
-    }
-
-    public virtual void OnAttack()
-    {
-        Debug.LogWarning($"WARNING {nameof(OnAttack)} method has not been implemented");
     }
 
     public virtual void SetFacingDirection(Vector2 moveInput)
@@ -142,24 +195,5 @@ public abstract class LivingEntity : DamageableEntity
     public float CalculateDefensePower(Equipment shield, LivingEntity entity)
     {
         return shield.multiplier * entity.ArmorPower;
-    }
-
-    public override void Hit(float damage)
-    {
-        base.Hit(damage);
-        CauseKnockback(Vector2.zero);
-    }
-
-    private void CauseKnockback(Vector2 knockbackPower)
-    {
-        Vector2 deliveredKnockback = Vector2.zero;
-        if (knockbackPower != Vector2.zero)
-        {
-            deliveredKnockback =
-                transform.parent.localScale.x > 0
-                    ? knockbackPower
-                    : new Vector2(-knockbackPower.x, knockbackPower.y);
-        }
-        rb.velocity = new Vector2(knockbackPower.x, rb.velocity.y + knockbackPower.y);
     }
 }

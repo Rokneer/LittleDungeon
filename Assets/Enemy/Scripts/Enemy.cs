@@ -1,44 +1,40 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CircleCollider2D))]
 public abstract class Enemy : LivingEntity, ILootable
 {
-    [HideInInspector]
-    public CircleCollider2D aggroTrigger;
-    public float _aggroRange;
-    public float AggroRange
+    public override float CurrentHealth
     {
-        get => _aggroRange;
         set
         {
-            _aggroRange = value;
-            aggroTrigger.radius = value;
+            base.CurrentHealth = value;
+            if (!IsAlive)
+            {
+                DropLoot();
+            }
         }
     }
 
-    protected override void Awake()
+    [SerializeField]
+    private float _lootLevel = 1;
+    public float LootLevel
     {
-        base.Awake();
-        aggroTrigger = GetComponent<CircleCollider2D>();
+        get => _lootLevel;
+        set => _lootLevel = value;
     }
 
-    public override void OnMove()
+    [SerializeField]
+    private float attackPower = 1;
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        throw new System.NotImplementedException();
+        if (collision.TryGetComponent<Player>(out Player player))
+        {
+            player.OnHealthChange(attackPower, true);
+        }
     }
 
-    public override void OnAttack()
+    public void DropLoot()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public virtual void ChangeState()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void DropLoot(DamageableEntity entity, int LootLevel)
-    {
-        throw new System.NotImplementedException();
+        Debug.Log($"Dropped loot of level {LootLevel}");
     }
 }

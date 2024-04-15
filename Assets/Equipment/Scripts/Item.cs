@@ -27,7 +27,6 @@ public class Item : Entity
     {
         inventory.AddEquipment(Equipment);
         SoundFXManager.Instance.PlaySoundFXClip(Equipment.pickUpSFX, transform, 1f);
-        Debug.Log($"{entityName} was picked up");
         Despawn();
     }
 

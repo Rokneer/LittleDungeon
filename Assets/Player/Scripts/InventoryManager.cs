@@ -40,7 +40,6 @@ public class InventoryManager : MonoBehaviour
             case EquipmentSide.Right:
                 if (weapons.Count <= 1)
                 {
-                    Debug.Log("No more weapons in inventory");
                     return;
                 }
                 rightHandIndex = RotateEquipmentIndex(weapons, rightHandIndex);
@@ -49,7 +48,6 @@ public class InventoryManager : MonoBehaviour
             case EquipmentSide.Left:
                 if (shields.Count <= 1)
                 {
-                    Debug.Log("No more shields in inventory");
                     return;
                 }
                 leftHandIndex = RotateEquipmentIndex(shields, leftHandIndex);

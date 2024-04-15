@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   maxHealth: 60
-  currentHealth: 80
+  currentHealth: 0
   maxStamina: 50
   currentStamina: 50
   movementSpeed: 6
   attackPower: 1
-  weaponUseDelay: 0
+  weaponUseDelay: 0.00006805655
   shieldUseDelay: 1
   armorPower: 50
   armorDurability: 6
