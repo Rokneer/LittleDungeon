@@ -18,5 +18,6 @@ MonoBehaviour:
   statusEffect: 0
   useDelayMultiplier: 0.8
   multiplier: 1
+  staminaCost: 5
   pickUpSFX: {fileID: 8300000, guid: 8a1f1ffe497e30342ba6af1f54cf7c79, type: 3}
   actionSFX: {fileID: 8300000, guid: 8a1f1ffe497e30342ba6af1f54cf7c79, type: 3}

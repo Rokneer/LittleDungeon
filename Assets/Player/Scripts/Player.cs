@@ -26,6 +26,10 @@ public class Player : LivingEntity
         {
             base.CurrentHealth = value;
             stats.currentHealth = value;
+            if (IsAlive)
+            {
+                PlayerUIManager.Instance.UpdateArmorUI(value, MaxHealth);
+            }
         }
     }
 
@@ -43,6 +47,10 @@ public class Player : LivingEntity
         {
             base.CurrentStamina = value;
             stats.currentStamina = value;
+            if (IsAlive)
+            {
+                PlayerUIManager.Instance.UpdateStaminaUI(value);
+            }
         }
     }
 
@@ -74,15 +82,7 @@ public class Player : LivingEntity
             stats.armorPower = value;
         }
     }
-    public override float ArmorDurability
-    {
-        get => base.ArmorDurability;
-        set
-        {
-            base.ArmorDurability = value;
-            stats.armorDurability = value;
-        }
-    }
+
     public override float WeaponUseDelay
     {
         set
@@ -178,11 +178,10 @@ public class Player : LivingEntity
         MaxHealth = stats.maxHealth;
         CurrentHealth = stats.currentHealth == 0 ? stats.maxHealth : stats.currentHealth;
         MaxStamina = stats.maxStamina;
-        CurrentStamina = stats.currentStamina;
+        CurrentStamina = stats.currentStamina == 0 ? stats.maxStamina : stats.currentStamina;
         MovementSpeed = stats.movementSpeed;
         AttackPower = stats.attackPower;
         ArmorPower = stats.armorPower;
-        ArmorDurability = stats.armorDurability;
         DodgeImpulse = stats.dodgeImpulse;
         DodgeTime = stats.dodgeTime;
         DodgeCooldown = stats.dodgeCooldown;

@@ -155,7 +155,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5701f6cd6497e7a4bb68a544561cb35f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityName: Big Armor Potion
-  sprite: {fileID: 0}
-  animator: {fileID: 0}
-  _equipment: {fileID: 11400000, guid: 4973d65127253764ab80e90de72fa1bf, type: 2}
+  _equipment: {fileID: 11400000, guid: f78f25c0f12feee4aaaec4adba1cf532, type: 2}

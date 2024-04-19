@@ -74,7 +74,7 @@ public abstract class DamageableEntity : Entity
                 Hit(changeAmount);
                 return;
             }
-            Hit(changeAmount);
+            Heal(changeAmount);
         }
     }
 

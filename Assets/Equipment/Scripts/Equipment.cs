@@ -20,6 +20,9 @@ public class Equipment : ScriptableObject
     [Space]
     public float multiplier;
 
+    [Space]
+    public float staminaCost;
+
     [Header("Sound Effects")]
     public AudioClip pickUpSFX;
     public AudioClip actionSFX;

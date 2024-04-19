@@ -155,7 +155,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5701f6cd6497e7a4bb68a544561cb35f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityName: Big Stamina Potion
-  sprite: {fileID: 0}
-  animator: {fileID: 0}
-  _equipment: {fileID: 11400000, guid: 24225aaa0742b6d48a313dbee38054d2, type: 2}
+  _equipment: {fileID: 11400000, guid: 994abe7ead78143488fc21fc249be032, type: 2}

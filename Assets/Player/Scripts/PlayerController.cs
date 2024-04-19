@@ -99,11 +99,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnAttack(InputAction.CallbackContext context)
     {
-        if (
-            player.inventory.rightHandItem.Equipment.type is EquipmentType.Weapon
-            && player.IsAlive
-            && player.CanAttack
-        )
+        player.CanAttack =
+            player.CurrentStamina >= player.inventory.rightHandItem.Equipment.staminaCost;
+
+        if (!player.CanAttack)
+        {
+            return;
+        }
+        if (player.inventory.rightHandItem.Equipment.type is EquipmentType.Weapon && player.IsAlive)
         {
             StartCoroutine(Attack());
         }
@@ -113,7 +116,7 @@ public class PlayerController : MonoBehaviour
     {
         player.CanAttack = false;
         player.IsAttacking = true;
-
+        player.CurrentStamina -= 10;
         player.weaponAnimator.SetTrigger(AnimationStrings.Attack);
         SoundFXManager
             .Instance
@@ -131,6 +134,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnBlockStart(InputAction.CallbackContext context)
     {
+        player.CanBlock =
+            player.CurrentStamina >= player.inventory.leftHandItem.Equipment.staminaCost;
         if (
             player.inventory.leftHandItem.Equipment.type is EquipmentType.Shield
             && player.IsAlive

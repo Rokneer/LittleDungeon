@@ -35,6 +35,8 @@ public abstract class Entity : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    protected virtual void Start() { }
+
     protected virtual void Update() { }
 
     protected virtual void Despawn()

@@ -23,7 +23,6 @@ public class PlayerStats : ScriptableObject
 
     [Header("Armor")]
     public float armorPower;
-    public float armorDurability;
 
     [Header("Dodge")]
     public float dodgeImpulse;

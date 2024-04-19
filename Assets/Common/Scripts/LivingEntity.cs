@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class LivingEntity : DamageableEntity
@@ -18,8 +19,16 @@ public abstract class LivingEntity : DamageableEntity
     private float _currentStamina = 100;
     public virtual float CurrentStamina
     {
-        get => _currentStamina;
+        get => _currentStamina = Mathf.Clamp(_currentStamina, 0, MaxStamina);
         set => _currentStamina = value;
+    }
+
+    [SerializeField]
+    private float _staminaRegenAmount = 4;
+    public virtual float StaminaRegenAmount
+    {
+        get => _staminaRegenAmount;
+        set => _staminaRegenAmount = value;
     }
 
     [Header("Movement")]
@@ -80,14 +89,6 @@ public abstract class LivingEntity : DamageableEntity
         set => _armorPower = value;
     }
 
-    [SerializeField]
-    private float _armorDurability = 10;
-    public virtual float ArmorDurability
-    {
-        get => _armorDurability;
-        set => _armorDurability = value;
-    }
-
     [Header("Attack")]
     public GameObject rightHand;
 
@@ -135,7 +136,7 @@ public abstract class LivingEntity : DamageableEntity
     public bool IsBlocking
     {
         get => _isBlocking;
-        set => _isBlocking = value;
+        set => _isBlocking = IsAlive && value;
     }
 
     [SerializeField]
@@ -170,6 +171,20 @@ public abstract class LivingEntity : DamageableEntity
     {
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        InvokeRepeating(nameof(RegenStamina), 0, 0.5f);
+    }
+
+    private void RegenStamina()
+    {
+        if (IsAlive && CurrentStamina < MaxStamina)
+        {
+            CurrentStamina += StaminaRegenAmount;
+        }
     }
 
     public virtual void SetFacingDirection(Vector2 moveInput)

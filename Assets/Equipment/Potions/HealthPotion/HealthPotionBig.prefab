@@ -155,7 +155,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5701f6cd6497e7a4bb68a544561cb35f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityName: Big Health Potion
-  sprite: {fileID: 0}
-  animator: {fileID: 0}
-  _equipment: {fileID: 11400000, guid: 798040c9f67fff34f81f3c60320ba7b9, type: 2}
+  _equipment: {fileID: 11400000, guid: 16a9fb9c072252c4d98e0dab470b5470, type: 2}
